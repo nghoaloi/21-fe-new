@@ -1,0 +1,106 @@
+<div class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-3 fh5co_padding_menu">
+                <img src="images/logo.png" alt="img" class="fh5co_logo_width"/>
+                <div class="text-center d-inline-block">
+                    <a href="index.html" class="textStatus " id="home-btn">Trang Chủ</a>
+                </div>
+            </div> 
+            <div class="col-12 col-md-9 align-self-center fh5co_mediya_right">
+                <div class="text-center d-inline-block" style="position: relative;">
+                    <input type="text" id="search" class="form-control" placeholder="Tìm kiếm...">
+                    <ul id="suggestions" class="suggestions-list" ></ul>
+                </div>                 
+                <div class="text-center d-inline-block">
+                    <submit class="btn btn-outline-primary" id="search-btn"><i class="fa fa-search"></i></submit>
+                </div>
+                <div class="text-center d-inline-block">
+                    <a href="login.html" class="btn btn-outline-primary" id="login-btn">Đăng Nhập</a>
+                </div>
+                <div class="clearfix" id="welcome-msg"></div> </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/script.js"></script>
+
+<script>  $(document).ready(function () {
+       
+    // tìm kím
+    const searchInput = document.getElementById("search");
+    const suggestionsList = document.getElementById("suggestions");
+
+
+    // Lắng nghe sự kiện nhập liệu từ người dùng
+    searchInput.addEventListener("input", function() {
+        const query = searchInput.value.toLowerCase();  // Lấy giá trị từ thanh tìm kiếm
+        suggestionsList.innerHTML = "";  // Xóa gợi ý cũ mỗi lần nhập liệu thay đổi
+
+        if (query) {
+            $.getJSON(apiUrl, function(data) {
+                // Kiểm tra nếu data có phần tử
+                if (data && Array.isArray(data)) {
+                    const filteredArticles = data.filter(item => item.tieuDe.toLowerCase().includes(query));
+                    console.log(filteredArticles);  // Xem kết quả lọc
+
+                    // Hiển thị các bài viết tìm thấy
+                    filteredArticles.forEach(item => {
+                        const suggestionItem = document.createElement("li");
+                        suggestionItem.innerHTML = `
+                            <img src="${item.hinhDaiDien}" alt="${item.tieuDe}">
+                            <span>${item.tieuDe}</span>
+                        `;
+
+                        // Thêm sự kiện click vào mỗi item
+                        suggestionItem.addEventListener("click", function() {
+                            window.location.href = `single.html?idTin=${item.idTin}`;
+                        });
+
+                        suggestionsList.appendChild(suggestionItem);
+                    });
+
+                    // Hiển thị danh sách gợi ý nếu có kết quả
+                    suggestionsList.style.display = filteredArticles.length > 0 ? "block" : "none";
+                } else {
+                    console.error("Invalid data format from API");
+                }
+            }).fail(function() {
+                console.error("Failed to fetch articles from the API.");
+            });
+        } else {
+            // Ẩn danh sách gợi ý khi thanh tìm kiếm trống
+            suggestionsList.style.display = "none";
+        }
+    });
+
+    // Đóng gợi ý khi người dùng click ra ngoài
+    document.addEventListener("click", function(e) {
+        if (!searchInput.contains(e.target) && !suggestionsList.contains(e.target)) {
+            suggestionsList.style.display = "none";  // Ẩn danh sách gợi ý khi nhấn ra ngoài
+        }
+    });
+
+    // Khi người dùng nhấn vào thanh tìm kiếm, hiển thị lại danh sách gợi ý nếu có dữ liệu
+    searchInput.addEventListener("focus", function() {
+        const query = searchInput.value.toLowerCase();  // Lấy giá trị từ thanh tìm kiếm
+        if (query) {
+            suggestionsList.style.display = "block"; // Hiển thị lại danh sách gợi ý nếu có từ khóa
+        }
+    });
+        const apiUrl = "http://nguyenquocdai-001-site1.ltempurl.com/api/tin/danhsach";
+
+        $.getJSON(apiUrl, function(data) {
+            window.articles = data; // Store articles globally
+            window.filteredArticles = data; // Initially, all articles are displayed
+            renderArticles(data, 1);
+            renderPagination(data.length, 1);
+        }).fail(function() {
+            console.error("Failed to fetch articles from the API.");
+        });
+
+    });
+
+</script>

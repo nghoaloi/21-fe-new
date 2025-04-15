@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style_1.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Register Form -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h2 class="text-center mb-4">Đăng Ký</h2>
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Nhập email của bạn" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Mật khẩu</label>
+                        <input type="password" class="form-control" id="password" placeholder="Nhập mật khẩu của bạn" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Xác nhận mật khẩu</label>
+                        <input type="password" class="form-control" id="confirm-password" placeholder="Nhập lại mật khẩu của bạn" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Đăng Ký</button>
+                </form>
+                <p class="text-center mt-3">
+                    Đã có tài khoản? <a href="login.html">Đăng nhập ngay</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+  
+    <script src="js/script.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#header-placeholder").load("header.html");
+
+            // Handle register form submission
+        $("#register-form").submit(function(e) {
+            e.preventDefault(); // Ngừng hành động mặc định của form
+
+            const email = $("#email").val(); // Lấy giá trị email
+            const password = $("#password").val(); // Lấy giá trị mật khẩu
+            const confirmPassword = $("#confirm-password").val(); // Lấy giá trị xác nhận mật khẩu
+
+            // Gọi hàm đăng ký người dùng
+            registerUser(email, password, confirmPassword); // Gọi hàm đăng ký
+        });
+
+        });
+    </script>
+</body>
+</html>

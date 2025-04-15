@@ -1,0 +1,44 @@
+/* Container chứa thanh tìm kiếm */
+.search-container {
+    position: relative;  /* Đảm bảo thẻ chứa có vị trí relative */
+    width: 100%;  /* Chiều rộng của phần tử chứa sẽ chiếm toàn bộ chiều rộng */
+}
+
+/* Danh sách gợi ý */
+#suggestions {
+    display: none;  /* Ẩn mặc định */
+    position: absolute;  /* Đặt nó ở vị trí tuyệt đối so với phần tử chứa */
+    top: 100%;  /* Đặt danh sách gợi ý ngay dưới thanh tìm kiếm */
+    left: 0;  /* Căn trái với thanh tìm kiếm */
+    background-color: white;  /* Nền trắng */
+    border: 1px solid #ddd;  /* Đường viền */
+    width: 100%;  /* Chiều rộng của danh sách gợi ý bằng chiều rộng của thanh tìm kiếm */
+    max-width: 100%;  /* Không giới hạn chiều rộng tối đa */
+    max-height: 200px;  /* Chiều cao tối đa */
+    overflow-y: auto;  /* Cuộn dọc khi có quá nhiều gợi ý */
+    padding: 10px;
+    box-sizing: border-box;
+    z-index: 1000;  /* Đảm bảo danh sách gợi ý luôn hiển thị trên các phần tử khác */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);  /* Thêm bóng cho danh sách gợi ý */
+}
+
+/* Item trong danh sách gợi ý */
+#suggestions li {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#suggestions li:hover {
+    background-color: #f0f0f0;  /* Màu nền khi hover */
+}
+
+/* Ảnh trong danh sách gợi ý */
+#suggestions img {
+    width: 70px;   /* Kích thước ảnh */
+    height: 50px;  /* Kích thước ảnh */
+    margin-right: 10px;  /* Khoảng cách giữa ảnh và tiêu đề */
+}

@@ -1,0 +1,71 @@
+    <!-- bảng -->
+    <div class="card my-4">
+        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+          <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+            <h6 class="text-white text-capitalize ps-3">bảng user </h6>
+            <button type="button" id="adduserbutton" class="btn btn-light mt-2" style="position: absolute; top: 10px; right: 20px;"
+            data-bs-toggle="modal" data-bs-target="#adduserModal">thêm user</button>
+
+          </div>
+        </div>
+        <div class="card-body px-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center mb-0">
+              <thead>
+                <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">id người dùng</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">email</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">trạng thái</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">role</th>
+                  <th class="text-secondary opacity-7"></th>
+                </tr>
+              </thead>
+              <tbody id="user-table">
+                <!-- dòng dữ liệu -->
+                <tr>
+                  <td>                    
+                      <p class="text-xs text-secondary mb-0">id người dùng</p>
+                  </td>
+                  <td>
+                    <p class="text-xs text-secondary mb-0">email</p>
+                  </td>
+                  <td>
+                    <p class="text-xs text-secondary mb-0">trạng thái</p>
+                  </td>
+                  <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">role </span>
+                  </td>
+                  
+                </tr>
+                <!-- end dòng  dữ liệu-->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- end bảng-->
+
+      <div class="modal fade" id="adduserModal" tabindex="-1" aria-labelledby="adduserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="adduserModalLabel">thêm user mới</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="adduserForm">
+                        <div class="mb-3">
+                            <label for="email" class="form-label" >email</label>
+                            <input type="text" class="form-control" id="email" style="border: 2px solid;" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="passwordAdd" class="form-label">mật khẩu</label>
+                            <textarea class="form-control" id="password" rows="3" style="border: 2px solid;" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">thêm user</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+      </div>
+       <script src="assets/js/script_user.js"></script> 

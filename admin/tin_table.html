@@ -1,0 +1,167 @@
+    <!-- bảng -->
+    <div class="card my-4">
+        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+          <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3 d-flex justify-content-between" >
+            <h6 class="text-white text-capitalize ps-3">bảng tin tức </h6>
+            <button type="button" id="addbutton" class="btn btn-light mt-2" style="position: absolute; top: 10px; right: 20px;"
+            data-bs-toggle="modal" data-bs-target="#addModal">đăng tin</button>          
+          </div>
+        </div>
+        <div class="card-body px-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center mb-0">
+              <thead>
+                <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ảnh và id</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">mô tả</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">nội dung</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">số lần xen</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ngày tạo</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">tác giả</th>
+
+                  <th class="text-secondary opacity-7"></th>
+                </tr>
+              </thead>
+              <tbody id="data-table">
+                <!-- dòng dữ liệu -->
+                <tr>
+                  <td>
+                    <div class="d-flex px-2 py-1">
+                      <div>
+                        <img src="" class="avatar avatar-sm me-3 border-radius-lg" alt="">
+                      </div>
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm">id</h6>
+                        <p class="text-xs text-secondary mb-0">số id</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <p class="text-xs text-secondary mb-0">mô tả của tin tức</p>
+                  </td>
+                  <td>
+                    <p class="text-xs text-secondary mb-0">nội dung của tin tức</p>
+                  </td>
+                  <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">số lần xem</span>
+                  </td>
+                  <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
+                  </td>
+                  <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">tác giả</span>
+                  </td>
+                  <td class="align-middle">
+                    <a href="" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edittin">
+                      Edit
+                    </a>
+                  </td>
+                </tr>
+                <!-- end dòng  dữ liệu-->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- end bảng-->
+
+      <!-- Modal Edit -->
+      <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editModalLabel">Chỉnh sửa tin tức</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="editForm">
+                <!-- Các trường nhập liệu khác -->
+                <div class="mb-3">
+                  <label for="loaiTin" class="form-label">Loại tin</label>
+                  <select class="form-control" style="border: 2px solid;" id="loaiTin" required>
+                    <!-- Các loại tin sẽ được điền vào đây qua JavaScript -->
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="tieuDe" class="form-label">Tiêu đề</label>
+                  <input type="text" class="form-control" style="border: 2px solid;" id="tieuDe" required>
+                </div>
+                <div class="mb-3">
+                  <label for="moTa" class="form-label">Mô tả</label>
+                  <textarea class="form-control" id="moTa" style="border: 2px solid;" rows="3" required></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="noiDung" class="form-label">Nội dung</label>
+                  <textarea class="form-control" id="noiDung" style="border: 2px solid;" rows="5" required></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="hinhDaiDien" class="form-label">Hình đại diện</label>
+                  <input type="text" class="form-control" style="border: 2px solid;" id="hinhDaiDien" required>
+                </div>
+                <div class="mb-3">
+                  <label for="ngayDangTin" class="form-label">Ngày đăng tin</label>
+                  <input type="datetime-local" class="form-control" style="border: 2px solid;" id="ngayDangTin" required>
+                </div>
+                <div class="mb-3">
+                  <label for="tacGia" class="form-label">Tác giả</label>
+                  <input type="text" class="form-control" style="border: 2px solid;" id="tacGia" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Cập nhật</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- them model -->
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="addModalLabel">Đăng tin tức mới</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <form id="adduserForm">
+
+                <div class="mb-3">
+                  <label for="loaiTinAdd" class="form-label">Loại tin</label>
+                  <select class="form-control" style="border: 2px solid;" id="loaiTinAdd" required>
+                    <!-- Các loại tin sẽ được điền vào đây qua JavaScript -->
+                  </select>
+                </div>
+                
+                  <div class="mb-3">
+                      <label for="tieuDeAdd" class="form-label" >Tiêu đề</label>
+                      <input type="text" class="form-control" id="tieuDeAdd" style="border: 2px solid;" required>
+                  </div>
+                  <div class="mb-3">
+                      <label for="moTaAdd" class="form-label">Mô tả</label>
+                      <textarea class="form-control" id="moTaAdd" rows="3" style="border: 2px solid;" required></textarea>
+                  </div>
+                  <div class="mb-3">
+                      <label for="noiDungAdd" class="form-label">Nội dung</label>
+                      <textarea class="form-control" id="noiDungAdd" rows="5" style="border: 2px solid;" required></textarea>
+                  </div>
+                  <div class="mb-3">
+                      <label for="hinhDaiDienAdd" class="form-label">Hình đại diện</label>
+                      <input type="text" class="form-control" id="hinhDaiDienAdd" style="border: 2px solid;" required>
+                  </div>
+                  <div class="mb-3">
+                      <label for="ngayDangTinAdd" class="form-label">Ngày đăng tin</label>
+                      <input type="datetime-local" class="form-control" style="border: 2px solid;" id="ngayDangTinAdd" required>
+                  </div>
+                  <div class="mb-3">
+                      <label for="tacGiaAdd" class="form-label">Tác giả</label>
+                      <input type="text" class="form-control" style="border: 2px solid;" id="tacGiaAdd" required>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Đăng tin</button>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- End Modal -->
+
+
+      <script src="assets/js/script_tin.js"></script>
