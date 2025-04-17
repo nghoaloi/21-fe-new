@@ -55,38 +55,28 @@
             </div>
             <div class="col-md-3 animate-box" data-animate-effect="fadeInRight">
                 <div>
-                    <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4">Tags</div>
-                </div>
-                <div class="clearfix"></div>
-                <div class="fh5co_tags_all">
-                    <a href="#" class="fh5co_tagg">Business</a>
-                    <a href="#" class="fh5co_tagg">Technology</a>
-                    <a href="#" class="fh5co_tagg">Sport</a>
-                    <a href="#" class="fh5co_tagg">Art</a>
-                    <a href="#" class="fh5co_tagg">Lifestyle</a>
-                    <a href="#" class="fh5co_tagg">Three</a>
-                    <a href="#" class="fh5co_tagg">Photography</a>
-                    <a href="#" class="fh5co_tagg">Lifestyle</a>
-                    <a href="#" class="fh5co_tagg">Art</a>
-                    <a href="#" class="fh5co_tagg">Education</a>
-                    <a href="#" class="fh5co_tagg">Social</a>
-                    <a href="#" class="fh5co_tagg">Three</a>
-                </div>
-
-                <div>
                     <div class="fh5co_heading fh5co_heading_border_bottom pt-3 py-2 mb-4">được xem nhiều</div>
                 </div>
-                <div class="row pb-3">
+                <div id="xemnhieucontain"></div>
+                <!-- <div class="row pb-3">
                     <div class="col-5 align-self-center">
-                        <img src="images/download (1).jpg" alt="img" class="fh5co_most_trading"/>
+                        <img src="" alt="img" class="fh5co_most_trading"/>
                     </div>
                     <div class="col-7 paddding">
-                        <div class="most_fh5co_treding_font"> Magna aliqua ut enim ad minim veniam quis nostrud.</div>
-                        <div class="most_fh5co_treding_font_123"> April 18, 2016</div>
+                        <div class="most_fh5co_treding_font"> tiêu đề</div>
+                        <div class="most_fh5co_treding_font_123"> thời gian</div>
                     </div>
+                </div> -->
+                <div>
+                    <div class="fh5co_heading fh5co_heading_border_bottom pt-3 py-2 mb-4">tin hot</div>
                 </div>
-
+                <div id="tinhotcontain"></div>
+                
             </div>
+            
+                
+               
+            
         </div>
         <div class="row mx-0 animate-box" data-animate-effect="fadeInUp">
             <div class="col-12 text-center pb-4 pt-4">
@@ -193,200 +183,7 @@
 <script src="js/jquery.waypoints.min.js"></script>
 <!-- Main -->
 <script src="js/main.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-
-    <script>
-    $(document).ready(function () {
-        
-        const apiUrl = "http://nguyenquocdai-001-site1.ltempurl.com/api/tin/danhsach";
-        const menuApiUrl = "http://nguyenquocdai-001-site1.ltempurl.com/api/tin/menu";
-        
-        $("#header-placeholder").load("header.html");
-        
-       
-
-        function renderArticles(articles, page) {
-            const itemsPerPage = 6;
-            const start = (page - 1) * itemsPerPage;
-            const end = start + itemsPerPage;
-            const paginatedArticles = articles.slice(start, end);
-
-            const newsContainer = $("#news-container");
-            newsContainer.empty();
-
-            paginatedArticles.forEach(article => {
-                // console.log(article); 
-                newsContainer.append(`
-                    <div class="col-md-5">
-                    <div class="fh5co_hover_news_img">
-                        <div class="fh5co_news_img"><img src="${article.hinhDaiDien || 'https://via.placeholder.com/150'}" alt=""/></div>
-                        <div>
-                        <a href="single.html?idTin=${article.idTin || ''}" class="fh5co_magna py-2">${article.tieuDe || 'No Title'}</a> 
-                        <a href="" class="fh5co_mini_time py-3"> ${article.tacGia || 'không có tác giả'}  - ${article.ngayDangTin || 'no time'}</a>
-                        <div class="fh5co_consectetur"> ${article.moTa || 'chưa có mô tả cụ thể'}
-                        </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                    ` 
-                );
-            });
-        }
-
-        // menu
-    function renderMenu(categories) {
-    const menuContainer = $("#menu-container");
-    menuContainer.empty(); // Clear existing menu items
-
-    categories.forEach(category => {
-        const subMenuItems = category.loaiTin.map(loai => `
-            <li><a class="dropdown-item" href="#" data-id-loai-tin="${loai.idLoaiTin}">${loai.tenLoaiTin}</a></li>
-        `).join("");
-
-        menuContainer.append(`
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-id-nhom-tin="${category.idNhomTin}">
-                    ${category.tenNhomTin}
-                </a>
-                <ul class="dropdown-menu">
-                    ${subMenuItems}
-                </ul>
-            </li>
-        `);
-    });
-
-    // Add hover event to show/hide dropdown
-    $(".nav-item.dropdown").hover(
-        function() {
-            $(this).find(".dropdown-menu").stop(true, true).slideDown(200);
-        },
-        function() {
-            $(this).find(".dropdown-menu").stop(true, true).slideUp(200);
-        }
-    );
-
-    // Add click event for filtering articles based on loaiTin
-    $(".dropdown-item[data-id-loai-tin]").click(function(e) {
-        e.preventDefault();
-        const idLoaiTin = $(this).data("id-loai-tin");
-        // Fetch articles for selected idLoaiTin
-        fetchArticlesByCategory(idLoaiTin);
-    });
-}
-
- // Hàm lọc bài viết theo idLoaiTin
-function fetchArticlesByCategory(idLoaiTin) {
-    const loaiTinApiUrl = "http://nguyenquocdai-001-site1.ltempurl.com/api/tin/loaitin/";
-
-    $.getJSON(menuApiUrl, function(data) { 
-        if (data) {
-           
-            // Lấy tất cả các bài viết từ API dựa vào idLoaiTin
-            $.getJSON(`${loaiTinApiUrl}${idLoaiTin}`, function(articles) {
-                console.log(articles);  
-                
-                // Lưu bài viết đã lọc vào biến toàn cục
-                window.filteredArticles = articles;
-                
-                // Hiển thị các bài viết đã lọc và phân trang
-                renderArticles(filteredArticles, 1);
-                renderPagination(filteredArticles.length, 1);
-            }).fail(function() {
-                console.error("Failed to fetch articles for idLoaiTin:", idLoaiTin);
-            });
-        } else {
-            console.error("Category not found for idLoaiTin:", idLoaiTin);
-        }
-    }).fail(function() {
-        console.error("Failed to fetch menu categories.");
-    });
-}
-        
-    function renderPagination(totalArticles, currentPage) {
-    const itemsPerPage = 6;
-    const totalPages = Math.ceil(totalArticles / itemsPerPage);
-    const pagination = $("#pagination");
-    pagination.empty();
-
-    // Previous button
-    pagination.append(`
-        <a href="#" class="btn_mange_pagging ${currentPage === 1 ? 'disabled' : ''}">
-            <i class="fa fa-long-arrow-left"></i>&nbsp;&nbsp;Previous
-        </a>
-    `);
-
-    // Page numbers with ellipsis if needed
-    for (let i = 1; i <= totalPages; i++) {
-        pagination.append(`
-            <a href="#" class="btn_pagging ${i === currentPage ? 'active' : ''}">${i}</a>
-        `);
-    }
-
-    // Next button
-    pagination.append(`
-        <a href="#" class="btn_mange_pagging ${currentPage === totalPages ? 'disabled' : ''}">
-            Next&nbsp;&nbsp;<i class="fa fa-long-arrow-right"></i>
-        </a>
-    `);
-
-    // Attach event listeners to pagination buttons
-    $(".btn_pagging").click(function(e) {
-        e.preventDefault();
-        const page = parseInt($(this).text());
-        renderArticles(window.filteredArticles, page);  // Render articles based on page
-        renderPagination(window.filteredArticles.length, page);  // Re-render pagination
-    });
-
-    $(".btn_mange_pagging").click(function(e) {
-        e.preventDefault();
-        if ($(this).hasClass('disabled')) return;  // Prevent click if disabled
-
-        let newPage = currentPage;
-        if ($(this).find("i").hasClass("fa-long-arrow-left")) {
-            newPage = currentPage - 1;
-        } else {
-            newPage = currentPage + 1;
-        }
-
-        if (newPage >= 1 && newPage <= totalPages) {
-            renderArticles(window.filteredArticles, newPage);  // Render articles based on new page
-            renderPagination(window.filteredArticles.length, newPage);  // Re-render pagination
-        }
-    });
-}
-
-        // Fetch all articles initially đọc hết tinh tức 
-        $.getJSON(apiUrl, function(data) {
-            window.articles = data; // Store articles globally
-            window.filteredArticles = data; // Initially, all articles are displayed
-            renderArticles(data, 1);
-            renderPagination(data.length, 1);
-        }).fail(function() {
-            console.error("Failed to fetch articles from the API.");
-        });
-        
-        // đọc lấy api menu 
-        $.getJSON(menuApiUrl, function(data) {
-            if (data && data.length > 0) {
-                renderMenu(data); // Populate the menu dynamically
-            } else {
-                console.error("No categories found in the API response.");
-            }
-        }).fail(function(jqXHR, textStatus, errorThrown) {
-            console.error("Failed to fetch menu categories:", textStatus, errorThrown);
-            alert("Không thể tải menu danh mục. Vui lòng thử lại sau!");
-        });
-
-        // tìm kím  
-        const searchInput = document.getElementById("search");
-        const suggestionsList = document.getElementById("suggestions");
-
-    });
-    
-</script>
-
+<script src="js/script_index.js"></script>
 </body>
 </html>

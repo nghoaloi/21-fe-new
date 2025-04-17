@@ -33,6 +33,7 @@ $(document).ready(function () {
             <td><p class="text-xs text-secondary mb-0">${comment.trangThai === 1 ? 'Hiển thị' : 'Đã ẩn'}</p></td>
             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">${comment.idTin}</span></td>
             <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">${comment.emailNguoiDung}</span></td>
+            <td class="align-middle text-center"><span class="text-secondary text-xs font-weight-bold">${comment.noiDung}</span></td>
             <td class="align-middle">
               <button class="btn btn-sm btn-warning toggle-btn" data-id="${comment.idBinhLuan}">
                 bật/tắt

@@ -57,7 +57,7 @@
                         <label for="comment-content">Bình luận</label>
                         <textarea class="form-control" id="comment-content" rows="3" placeholder="Nhập bình luận của bạn" required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary" id="submit-comment" disabled>Gửi Bình Luận</button>
+                    <button type="submit" class="btn btn-primary" id="submit-comment" >Gửi Bình Luận</button>
                     <p class="text-danger mt-2" id="login-warning" style="display: none;">Bạn cần đăng nhập để bình luận.</p>
                 </form>
                 <div id="comments-list">
@@ -131,9 +131,9 @@
 
         // Fetch article data from the API
         $.getJSON(apiUrl, function(data) {
-    console.log("Dữ liệu API:", data); // Debug log
+        console.log("Dữ liệu API:", data); // Debug log
 
-    if (data && data.tieuDe) {
+        if (data && data.tieuDe) {
         const article = data;
 
         $("#article-title").text(article.tieuDe || "No Title");
@@ -143,14 +143,14 @@
         $("#article-author").text(article.tacGia || "N/A");
         $("#article-soluocxem").text(article.soLanXem || 0);
         $("#fh5co-title-box").css("background-image", `url(${article.hinhDaiDien || 'https://via.placeholder.com/150'})`);
-    } else {
-        alert("Không tìm thấy bài viết!");
-    }
-}).fail(function() {
-    console.error("Failed to fetch article data.");
-});
+        } else {
+            alert("Không tìm thấy bài viết!");
+        }
+        }).fail(function() {
+            console.error("Failed to fetch article data.");
+        });
 
-        // Fetch comments data from the API
+        // Fetch dữ liệu binh luận từ  API
         $.getJSON(commentsApiUrl, function(comments) {
             if (comments && comments.length > 0) {
                 comments.forEach(comment => {
@@ -172,35 +172,70 @@
             // alert("Không thể tải dữ liệu bình luận!");
         });
 
-        // Check if the user is logged in
-        const isLoggedIn = false; // Replace with actual login check logic
-        if (!isLoggedIn) {
-            $("#submit-comment").prop("disabled", true);
-            $("#login-warning").show();
+        // Kiểm tra token trong sessionStorage
+        const token = sessionStorage.getItem('token');
+        console.log(token);
+        if (!token) {
+            $("#submit-comment").prop("disabled", true); // Vô hiệu hóa nút gửi
+            $("#login-warning").show(); // Hiển thị cảnh báo yêu cầu đăng nhập
         }
 
-        // Handle comment submission
-        $("#comment-form").submit(function(e) {
-            e.preventDefault();
-            if (!isLoggedIn) {
-                alert("Bạn cần đăng nhập để bình luận.");
-                return;
-            }
-            const content = $("#comment-content").val();
-            const currentDate = new Date().toLocaleString("vi-VN");
+        // Xử lý gửi bình luận
+    $("#comment-form").submit(function (e) {
+    e.preventDefault();
 
-            if (content) {
-                const commentHtml = `
-                    <div class="border p-3 mb-3">
-                        <h5>Người dùng <small class="text-muted">${currentDate}</small></h5>
-                        <p>${content}</p>
-                    </div>
-                `;
-                $("#comments-list").append(commentHtml);
-                $("#comment-form")[0].reset();
-            }
-        });
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+        alert("Bạn cần đăng nhập để bình luận.");
+        return;
+    }
+        // bình luận post
+        const content = $("#comment-content").val().trim();
+        const idTin = getQueryParam("idTin"); // hàm này bạn đã có ở trên để lấy id từ URL
+
+        if (!content) {
+            alert("Vui lòng nhập nội dung bình luận.");
+            return;
+        }
+
+            // Gửi dữ liệu bình luận đến API
+        $.ajax({
+                url: "http://nguyenquocdai-001-site1.ltempurl.com/api/binhluan",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    IdTin: parseInt(idTin),
+                    NoiDung: content
+                }),
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                },
+                success: function (response) {
+                    const bl = response.binhLuan;
+                    const commenterName = bl.userEmail.split("@")[0];
+                    const time = new Date(bl.thoiGian).toLocaleString("vi-VN");
+
+                    const commentHtml = `
+                        <div class="border p-3 mb-3">
+                            <h5>${commenterName} <small class="text-muted float-right">${time}</small></h5>
+                            <p>${bl.noiDung}</p>
+                        </div>
+                    `;
+                    $("#comments-list").prepend(commentHtml);
+                    $("#comment-form")[0].reset();
+                },
+                error: function (xhr) {
+                    if (xhr.status === 401) {
+                        alert("Bạn chưa đăng nhập. Vui lòng đăng nhập để bình luận.");
+                    } else {
+                        alert("Đã xảy ra lỗi khi gửi bình luận. Vui lòng thử lại.");
+                        console.error("Lỗi gửi bình luận:", xhr);
+                    }
+                }
+            });
+
     });
+});
 </script>
 </body>
 </html>

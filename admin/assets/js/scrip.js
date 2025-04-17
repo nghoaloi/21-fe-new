@@ -19,4 +19,8 @@
         e.preventDefault();
         $('#view').load('binhluan_table.html');
     });    
+    $('#loaitin-management').click(function(e){
+        e.preventDefault();
+        $('#view').load('loaitin_table.html');
+    });
 });

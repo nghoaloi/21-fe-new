@@ -1,0 +1,107 @@
+    <!-- bảng -->
+    <div class="card my-4">
+        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+          <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+            <h6 class="text-white text-capitalize ps-3">bảng loại tin </h6>
+            <button type="button" id="addbutton" class="btn btn-light mt-2" style="position: absolute; top: 10px; right: 20px;"
+            data-bs-toggle="modal" data-bs-target="#modalThemLoaiTin">thêm loại tin</button>
+          </div>
+
+        </div>
+        <div class="card-body px-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center mb-0">
+              <thead>
+                <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">mã loại tin</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">tên loại tin</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">trạng thái</th>
+                  <th class="text-secondary opacity-7"></th>
+                </tr>
+              </thead>
+              <tbody id="groupList">
+                <!-- dòng dữ liệu -->
+                <tr>
+                  <td>
+                    <p class="text-secondary opacity-7">mã loại tin</p>
+                  </td>
+                  <td>
+                    <p class="text-xs text-secondary mb-0">tên loại tin</p>
+                  </td>
+                  <td>
+                    <p class="text-xs text-secondary mb-0">trạng thái loại tin</p>
+                  </td>
+
+                  <td>
+                    <button class="btn-dark" >hiện loại tin</button>
+                  </td>
+                </tr>
+                <!-- end dòng  dữ liệu-->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- end bảng-->
+
+      <!-- Modal Thêm Loại Tin -->
+<div class="modal" tabindex="-1" id="modalThemLoaiTin" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Thêm Loại Tin</h5>
+      </div>
+      <div class="modal-body">
+        <form id="formThemLoaiTin">
+          <div class="mb-3">
+            <label for="idLoaiTin" class="form-label">Mã loại tin</label>
+            <input type="text" class="form-control" id="idLoaiTin" required>
+          </div>
+          <div class="mb-3">
+            <label for="tenLoaiTin" class="form-label">Tên loại tin</label>
+            <input type="text" class="form-control" id="tenLoaiTin" required>
+          </div>
+          <div class="mb-3">
+            <label for="idNhomTin" class="form-label">Nhóm Tin</label>
+            <select class="form-select" id="idNhomTin" required>
+              <option value="">-- Chọn nhóm tin --</option>
+              <!-- Option sẽ được thêm bằng JS -->
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Thêm</button>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+ <!-- Modal Sửa Loại Tin -->
+<div id="modalSuaLoaiTin" class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content p-4 bg-white rounded">
+      <h5 class="modal-title">Sửa loại tin</h5>
+      <form id="formSuaLoaiTin">
+        <div class="mb-3">
+          <label for="sua_idLoaiTin" class="form-label">ID loại tin</label>
+          <input type="text" class="form-control" id="sua_idLoaiTin" readonly />
+        </div>
+        <div class="mb-3">
+          <label for="sua_tenLoaiTin" class="form-label">Tên loại tin</label>
+          <input type="text" class="form-control" id="sua_tenLoaiTin" required />
+        </div>
+        <div class="mb-3">
+          <label for="sua_idNhomTin" class="form-label">Nhóm Tin</label>
+          <select class="form-select" id="sua_idNhomTin" required>
+            <option value="">-- Chọn nhóm tin --</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Lưu chỉnh sửa</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<script src="assets/js/scrip.js"></script>
+<script src="assets/js/script_loaitin.js"></script>

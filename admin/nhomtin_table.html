@@ -3,6 +3,8 @@
         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
           <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
             <h6 class="text-white text-capitalize ps-3">bảng nhóm tin </h6>
+            <button type="button" id="addbutton" class="btn btn-light mt-2" style="position: absolute; top: 10px; right: 20px;"
+            data-bs-toggle="modal" data-bs-target="#modalThemNhomTin">thêm nhóm tin</button>
           </div>
         </div>
         <div class="card-body px-0 pb-2">
@@ -12,8 +14,7 @@
                 <tr>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">mã nhóm tin</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">tên nhóm tin</th>
-                  <th class="text-secondary opacity-7"></th>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> <button id="tbn_themloaitin" class="btn-dark"> thêm loại tin </button></th>
+                  <th class="text-secondary opacity-7">trạng thái</th>
                 </tr>
               </thead>
               <tbody id="groupList">
@@ -29,7 +30,7 @@
                     <p class="text-xs text-secondary mb-0">trạng thái nhóm tin</p>
                   </td>
                   <td>
-                    <button class="btn-dark" >hiện loại tin</button>
+                    <button class="btn-dark" >edit</button>
                   </td>
                 </tr>
                 <!-- end dòng  dữ liệu-->
@@ -40,62 +41,40 @@
       </div>
       <!-- end bảng-->
 
-      <!-- Modal Thêm Loại Tin -->
-<div class="modal" tabindex="-1" id="modalThemLoaiTin" aria-hidden="true">
+      <!-- Modal Thêm nhóm Tin -->
+<div class="modal" tabindex="-1" id="modalThemNhomTin" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Thêm Loại Tin</h5>
-        <button type="button" class="btn-close" onclick="closeModal()" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="formThemLoaiTin">
+        <form id="formThemNhomTin">
           <div class="mb-3">
-            <label for="idLoaiTin" class="form-label">Mã loại tin</label>
-            <input type="text" class="form-control" id="idLoaiTin" required>
+            <label for="tenNhomTin" class="form-label">Tên nhóm tin</label>
+            <input type="text" class="form-control" id="tenNhomTin" required>
           </div>
-          <div class="mb-3">
-            <label for="tenLoaiTin" class="form-label">Tên loại tin</label>
-            <input type="text" class="form-control" id="tenLoaiTin" required>
-          </div>
-          <div class="mb-3">
-            <label for="idNhomTin" class="form-label">Nhóm Tin</label>
-            <select class="form-select" id="idNhomTin" required>
-              <option value="">-- Chọn nhóm tin --</option>
-              <!-- Option sẽ được thêm bằng JS -->
-            </select>
-          </div>
-
           <button type="submit" class="btn btn-primary">Thêm</button>
-          <button type="button" class="btn btn-secondary" onclick="closeModal()">Hủy</button>
-
         </form>
       </div>
     </div>
   </div>
 </div>
  <!-- Modal Sửa Loại Tin -->
-<div id="modalSuaLoaiTin" class="modal">
+<div id="modalSuaNhomTin" class="modal">
   <div class="modal-dialog">
     <div class="modal-content p-4 bg-white rounded">
       <h5 class="modal-title">Sửa loại tin</h5>
-      <form id="formSuaLoaiTin">
+      <form id="formSuaNhomTin">
         <div class="mb-3">
-          <label for="sua_idLoaiTin" class="form-label">ID loại tin</label>
-          <input type="text" class="form-control" id="sua_idLoaiTin" readonly />
+          <label for="sua_idNhomTin" class="form-label">ID loại tin</label>
+          <input type="text" class="form-control" id="sua_idNhomTin" readonly />
         </div>
         <div class="mb-3">
-          <label for="sua_tenLoaiTin" class="form-label">Tên loại tin</label>
-          <input type="text" class="form-control" id="sua_tenLoaiTin" required />
-        </div>
-        <div class="mb-3">
-          <label for="sua_idNhomTin" class="form-label">Nhóm Tin</label>
-          <select class="form-select" id="sua_idNhomTin" required>
-            <option value="">-- Chọn nhóm tin --</option>
-          </select>
+          <label for="sua_tenNhomTin" class="form-label">Tên loại tin</label>
+          <input type="text" class="form-control" id="sua_tenNhomTin" required />
         </div>
         <button type="submit" class="btn btn-primary">Lưu chỉnh sửa</button>
-        <button type="button" class="btn btn-secondary" onclick="closeModalSua()">Hủy</button>
       </form>
     </div>
   </div>
